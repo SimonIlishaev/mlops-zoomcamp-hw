@@ -1,8 +1,8 @@
-# # For Deployment 
+# For Deployment 
 
-# from prefect.deployments import DeploymentSpec
-# from prefect.orion.schemas.schedules import CronSchedule
-# from prefect.flow_runners import SubprocessFlowRunner
+from prefect.deployments import DeploymentSpec
+from prefect.orion.schemas.schedules import CronSchedule
+from prefect.flow_runners import SubprocessFlowRunner
 
 import pickle
 import datetime
@@ -102,11 +102,11 @@ def main_flow(date=None):
         pickle.dump(lr, f_out)
     run_model(df_val_processed, categorical, dv, lr)
 
-main_flow("2021-08-15")
+# main_flow("2021-08-15")
 
-# DeploymentSpec(    
-#     name="Q4-CronScheduleDeployment",
-#     flow=main_flow,
-#     schedule=CronSchedule(cron="0 9 15 * *"),
-#     flow_runner=SubprocessFlowRunner(),
-# )
+DeploymentSpec(    
+    name="Q4-CronScheduleDeployment",
+    flow=main_flow,
+    schedule=CronSchedule(cron="0 9 15 * *"),
+    flow_runner=SubprocessFlowRunner(),
+)
